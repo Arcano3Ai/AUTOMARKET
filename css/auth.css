@@ -1,0 +1,156 @@
+/* === AUTH PAGES === */
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+  padding: calc(var(--nav-h) + var(--sp-8)) var(--sp-6) var(--sp-8);
+}
+
+.auth-card {
+  background: rgba(18, 18, 22, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-10);
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 32px 64px rgba(0,0,0,0.5);
+  position: relative;
+  overflow: hidden;
+}
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--clr-primary), var(--clr-primary-light), #f59e0b);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: var(--sp-7);
+}
+.auth-header h1 {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: white;
+  margin-bottom: var(--sp-2);
+  margin-top: 0;
+}
+.auth-header p {
+  color: var(--clr-text-muted);
+  font-size: var(--fs-sm);
+  margin: 0;
+}
+
+/* DEMO CREDENTIALS PANEL */
+.demo-creds-panel {
+  background: rgba(235, 10, 30, 0.06);
+  border: 1px solid rgba(235, 10, 30, 0.15);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+.demo-creds-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clr-text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--sp-3);
+}
+.demo-cred-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--clr-surface-mid);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-md);
+  padding: var(--sp-3) var(--sp-4);
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  text-align: left;
+  flex: 1;
+  min-width: 140px;
+}
+.demo-cred-btn:hover {
+  background: var(--clr-surface-high);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* GOOGLE BUTTON */
+.btn-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r-lg);
+  padding: 12px 20px;
+  color: white;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  font-family: var(--font-base);
+}
+.btn-google:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-1px);
+}
+
+/* FORM GROUPS */
+.form-group {
+  margin-bottom: var(--sp-5);
+}
+.form-label {
+  display: block;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11px;
+}
+
+/* FOOTER */
+.auth-footer {
+  margin-top: var(--sp-6);
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--clr-text-dim);
+}
+.auth-footer a {
+  color: var(--clr-primary-light);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color var(--tr-fast);
+}
+.auth-footer a:hover { text-decoration: underline; }
+
+/* SHAKE ANIMATION on wrong password */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-8px); }
+  30%       { transform: translateX(8px); }
+  45%       { transform: translateX(-6px); }
+  60%       { transform: translateX(6px); }
+  75%       { transform: translateX(-4px); }
+  90%       { transform: translateX(4px); }
+}
+
+/* SPIN for loading icon */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}

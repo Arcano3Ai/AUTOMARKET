@@ -1,0 +1,108 @@
+/* === SERVICE / TALLER PAGE === */
+.service-page {
+  padding-top: calc(var(--nav-h) + var(--sp-8));
+  padding-bottom: var(--sp-20);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-12);
+  align-items: start;
+}
+@media (max-width: 1024px) {
+  .service-grid { grid-template-columns: 1fr; }
+}
+
+.service-info {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-8));
+}
+.service-info h1 {
+  font-size: var(--fs-4xl);
+  font-weight: 900;
+  color: white;
+  margin-bottom: var(--sp-4);
+  line-height: 1.1;
+}
+.service-info p {
+  color: var(--clr-text-muted);
+  font-size: var(--fs-lg);
+  margin-bottom: var(--sp-8);
+  line-height: 1.6;
+}
+
+.service-features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+}
+.s-feat {
+  display: flex;
+  gap: var(--sp-4);
+}
+.s-feat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-xl);
+  background: var(--clr-primary-glow);
+  color: var(--clr-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.s-feat h3 {
+  color: white;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.s-feat p {
+  color: var(--clr-text-dim);
+  font-size: var(--fs-sm);
+  margin: 0;
+}
+
+.service-form {
+  background: var(--clr-surface-mid);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-8);
+  box-shadow: var(--sh-lg);
+}
+.service-form h3 {
+  font-size: var(--fs-2xl);
+  color: white;
+  margin-bottom: var(--sp-6);
+}
+.service-type-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-6);
+}
+.s-type-card {
+  border: 1px solid var(--clr-surface-high);
+  padding: var(--sp-4);
+  border-radius: var(--r-lg);
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  text-align: center;
+}
+.s-type-card:hover {
+  border-color: var(--clr-primary);
+  background: rgba(255,255,255,0.02);
+}
+.s-type-card.active {
+  border-color: var(--clr-primary);
+  background: var(--clr-primary-glow);
+  color: var(--clr-primary-light);
+}
+.s-type-card h4 {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.s-type-card span {
+  font-size: 11px;
+  color: var(--clr-text-dim);
+}

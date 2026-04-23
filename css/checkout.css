@@ -1,0 +1,94 @@
+/* === CHECKOUT PAGE === */
+.checkout-page {
+  padding-top: calc(var(--nav-h) + var(--sp-8));
+  padding-bottom: var(--sp-20);
+}
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: var(--sp-12);
+  align-items: start;
+}
+@media (max-width: 1024px) {
+  .checkout-grid { grid-template-columns: 1fr; }
+}
+
+.checkout-form-container {
+  background: var(--clr-surface-mid);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-8);
+  box-shadow: var(--sh-xl);
+}
+.checkout-form-container h2 {
+  font-size: var(--fs-2xl);
+  color: white;
+  margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--clr-surface-high);
+}
+
+.checkout-summary {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-8));
+  background: var(--clr-surface-mid);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+}
+.summary-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+.summary-body {
+  padding: var(--sp-6);
+}
+.summary-body h3 {
+  font-size: var(--fs-xl);
+  color: white;
+  margin-bottom: var(--sp-2);
+}
+.summary-line {
+  display: flex;
+  justify-content: space-between;
+  color: var(--clr-text-muted);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm);
+}
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--clr-surface-high);
+  font-size: var(--fs-xl);
+  font-weight: 800;
+}
+
+/* Payment Switcher */
+.pay-options {
+  display: flex;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-6);
+}
+.pay-option {
+  flex: 1;
+  background: var(--clr-surface-low);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-xl);
+  padding: var(--sp-4);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+  color: var(--clr-text-dim);
+}
+.pay-option.active {
+  border-color: var(--clr-primary);
+  background: var(--clr-primary-glow);
+  color: white;
+}
+.pay-option svg {
+  margin-bottom: 8px;
+}

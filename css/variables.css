@@ -1,0 +1,112 @@
+/* ================================================================
+   AUTOMARKET — "Velocity Noir Ultra" Design System
+   Inspired by The Kinetic Gallery — Stitch AI Design Session
+   Manrope Display + Inter Body — Premium Dark Automotive
+   ================================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+
+  /* ── FONTS ── */
+  --font-display: 'Manrope', sans-serif;
+  --font-body:    'Inter', sans-serif;
+  --font:         'Inter', sans-serif;       /* compat alias */
+
+  /* ── SURFACE HIERARCHY (deep atmospheric navy) ── */
+  --clr-bg:               #05111F;           /* infinite dark floor */
+  --clr-surface-lowest:   #030F1D;           /* deepest layer */
+  --clr-surface-low:      #0A1929;           /* secondary content */
+  --clr-surface-mid:      #0F2236;           /* card base */
+  --clr-surface-high:     #162840;           /* elevated interactive */
+  --clr-surface-top:      #1E3554;           /* floating / hover */
+  --clr-surface-bright:   #2A3F5E;           /* toasts, modals */
+
+  /* ── PRIMARY — Ignition Red ── */
+  --clr-primary:          #E63946;
+  --clr-primary-hot:      #FF1E1E;           /* max vibrancy CTA */
+  --clr-primary-light:    #FF6B6B;           /* hover states */
+  --clr-primary-dim:      rgba(230,57,70,0.18);
+  --clr-primary-glow:     rgba(230,57,70,0.28);
+  --clr-primary-glow-sm:  rgba(230,57,70,0.10);
+
+  /* ── TEXT ── */
+  --clr-text:             #EDF2F7;           /* primary text */
+  --clr-text-muted:       #94A3B8;           /* secondary text */
+  --clr-text-dim:         #4A6080;           /* placeholder, hints */
+
+  /* ── SEMANTIC ── */
+  --clr-success:          #22C55E;
+  --clr-warning:          #F59E0B;
+  --clr-info:             #38BDF8;
+  --clr-error:            var(--clr-primary);
+
+  /* ── GRADIENTS ── */
+  --grad-red:     linear-gradient(135deg, #FF1E1E 0%, #E63946 50%, #C62828 100%);
+  --grad-red-glow:linear-gradient(135deg, rgba(255,30,30,0.9) 0%, rgba(230,57,70,0.8) 100%);
+  --grad-surface: linear-gradient(180deg, #0A1929 0%, #05111F 100%);
+  --grad-hero:    linear-gradient(135deg, #05111F 0%, #0A1929 50%, #05111F 100%);
+  --grad-card:    linear-gradient(180deg, transparent 40%, rgba(5,17,31,0.9) 100%);
+
+  /* ── SHADOWS ── */
+  --sh-sm:  0 2px 8px rgba(0,0,0,0.4);
+  --sh-md:  0 8px 24px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3);
+  --sh-lg:  0 20px 48px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
+  --sh-xl:  0 32px 64px rgba(0,0,0,0.6), 0 8px 24px rgba(0,0,0,0.4);
+  --sh-red: 0 0 24px rgba(230,57,70,0.35), 0 8px 32px rgba(0,0,0,0.4);
+  --sh-red-sm: 0 0 12px rgba(230,57,70,0.25);
+  --sh-glow: 0 0 40px rgba(230,57,70,0.15);
+
+  /* ── GLASSMORPHISM ── */
+  --glass-bg:     rgba(15,34,54,0.7);
+  --glass-border: 1px solid rgba(255,255,255,0.06);
+  --glass-blur:   blur(20px);
+  --glass-blur-sm:blur(12px);
+
+  /* ── BORDER RADIUS ── */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   14px;
+  --r-xl:   20px;
+  --r-2xl:  28px;
+  --r-3xl:  40px;
+  --r-full: 9999px;
+
+  /* ── SPACING ── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-7:  28px;
+  --sp-8:  32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+  --sp-24: 96px;
+
+  /* ── TYPOGRAPHY SCALE ── */
+  --fs-xs:   0.6875rem;   /* 11px */
+  --fs-sm:   0.8125rem;   /* 13px */
+  --fs-base: 0.9375rem;   /* 15px */
+  --fs-md:   1rem;        /* 16px */
+  --fs-lg:   1.125rem;    /* 18px */
+  --fs-xl:   1.25rem;     /* 20px */
+  --fs-2xl:  1.5rem;      /* 24px */
+  --fs-3xl:  1.875rem;    /* 30px */
+  --fs-4xl:  2.5rem;      /* 40px */
+  --fs-5xl:  3.25rem;     /* 52px */
+  --fs-6xl:  4rem;        /* 64px */
+
+  /* ── TRANSITIONS ── */
+  --tr-fast:   cubic-bezier(0.2, 0, 0, 1) 160ms;
+  --tr-base:   cubic-bezier(0.2, 0, 0, 1) 250ms;
+  --tr-spring: cubic-bezier(0.34, 1.56, 0.64, 1) 380ms;
+  --tr-slow:   cubic-bezier(0.2, 0, 0, 1) 450ms;
+
+  /* ── LAYOUT ── */
+  --max-w:  1280px;
+  --nav-h:  68px;
+}

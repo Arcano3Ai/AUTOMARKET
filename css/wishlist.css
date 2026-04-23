@@ -1,0 +1,68 @@
+/* === WISHLIST PAGE === */
+.wishlist-page {
+  padding-top: calc(var(--nav-h) + var(--sp-4));
+  padding-bottom: var(--sp-20);
+  min-height: 80vh;
+}
+.wishlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--sp-8);
+  border-bottom: 1px solid var(--clr-surface-high);
+  padding-bottom: var(--sp-4);
+}
+.wishlist-header h1 {
+  font-size: var(--fs-3xl);
+  font-weight: 800;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.wishlist-header h1 svg {
+  color: var(--clr-primary);
+  fill: var(--clr-primary);
+}
+.wishlist-empty {
+  text-align: center;
+  padding: var(--sp-12) 0;
+}
+.wishlist-empty svg {
+  color: var(--clr-surface-high);
+  margin-bottom: var(--sp-4);
+}
+.wish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--sp-6);
+}
+/* Fab for adding to wishlist inside Detail/Cards */
+.btn-wish-toggle {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  z-index: 10;
+  cursor: pointer;
+  transition: all var(--tr-fast);
+}
+.btn-wish-toggle:hover {
+  transform: scale(1.1);
+  background: rgba(255,255,255,0.1);
+}
+.btn-wish-toggle.active {
+  color: var(--clr-primary);
+}
+.btn-wish-toggle.active svg {
+  fill: var(--clr-primary);
+}

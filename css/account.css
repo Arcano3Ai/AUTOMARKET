@@ -1,0 +1,77 @@
+/* === MI CUENTA (USER Dashboard) === */
+.account-page {
+  padding-top: calc(var(--nav-h) + var(--sp-4));
+  padding-bottom: var(--sp-20);
+  min-height: 80vh;
+}
+.account-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: var(--sp-8);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .account-grid { grid-template-columns: 1fr; }
+}
+
+.account-sidebar {
+  background: var(--clr-surface-mid);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+}
+.account-user {
+  padding: var(--sp-6);
+  text-align: center;
+  border-bottom: 1px solid var(--clr-surface-high);
+}
+.account-avatar {
+  width: 64px; height: 64px;
+  background: linear-gradient(135deg, var(--clr-primary), var(--clr-primary-light));
+  border-radius: 50%;
+  color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; font-weight: 800;
+  margin: 0 auto var(--sp-3);
+}
+
+.account-nav {
+  display: flex;
+  flex-direction: column;
+}
+.account-nav-item {
+  padding: var(--sp-4) var(--sp-6);
+  color: var(--clr-text-dim);
+  text-decoration: none;
+  font-weight: 600;
+  display: flex; gap: 12px; align-items: center;
+  transition: all var(--tr-fast);
+}
+.account-nav-item:hover, .account-nav-item.active {
+  background: rgba(255,255,255,0.02);
+  color: white;
+  border-left: 3px solid var(--clr-primary);
+}
+
+.account-content {
+  background: var(--clr-surface-mid);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-8);
+}
+.account-content h2 {
+  font-size: var(--fs-2xl);
+  color: white;
+  margin-bottom: var(--sp-6);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--clr-surface-high);
+}
+
+.order-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-xl);
+  padding: var(--sp-6);
+  margin-bottom: var(--sp-4);
+  display: flex; justify-content: space-between; align-items: center;
+}

@@ -1,0 +1,82 @@
+/* === SELL / VENDER PAGE ===
+   Comparte layout con financing.css pero tiene estilos propios */
+
+/* Hero de página de formulario */
+.form-page-hero {
+  padding: calc(var(--nav-h) + var(--sp-16)) 0 var(--sp-10);
+  text-align: center;
+  background: radial-gradient(ellipse at 50% 0%, rgba(230,57,70,0.12) 0%, transparent 60%);
+  border-bottom: 1px solid var(--clr-surface-high);
+}
+.form-page-hero h1 {
+  font-size: var(--fs-4xl);
+  font-weight: 900;
+  color: white;
+  letter-spacing: -0.03em;
+  margin: var(--sp-4) 0 var(--sp-3);
+}
+.form-page-hero p {
+  color: var(--clr-text-muted);
+  font-size: var(--fs-lg);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* Layout de dos columnas: info + form */
+.form-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: var(--sp-12);
+  padding-bottom: var(--sp-20);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .form-layout { grid-template-columns: 1fr; }
+  .info-panel { order: 2; }
+}
+
+/* Panel de ventajas */
+.info-panel h2 {
+  font-size: var(--fs-2xl);
+  font-weight: 800;
+  color: white;
+  margin-bottom: var(--sp-6);
+}
+.info-list { display: flex; flex-direction: column; gap: var(--sp-4); }
+.info-item {
+  display: flex;
+  gap: var(--sp-4);
+  align-items: flex-start;
+}
+.info-item-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.info-item h3 {
+  font-size: var(--fs-base);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 4px;
+}
+.info-item p {
+  color: var(--clr-text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.5;
+}
+
+/* Panel del formulario */
+.form-panel {
+  background: var(--clr-surface-low);
+  border: 1px solid var(--clr-surface-high);
+  border-radius: var(--r-2xl);
+  padding: var(--sp-8);
+  box-shadow: var(--sh-lg);
+  position: sticky;
+  top: calc(var(--nav-h) + var(--sp-4));
+}
+
+/* Reutilizar financing layout también */
+.financing-page {
+  padding: calc(var(--nav-h) + var(--sp-8)) 0 var(--sp-20);
+}
