@@ -13,7 +13,7 @@ window.Pages.renderDetail = (id) => {
   const similares = DB.getSimilares(auto, 3);
   const isFav = window.Wishlist && window.Wishlist.getFavorites().includes(auto.id);
   const waText = encodeURIComponent(`Hola, me interesa este auto: ${auto.marca} ${auto.modelo} ${auto.año} - ${window.location.href}`);
-  const waLink = `https://wa.me/521XXXXXXXXXX?text=${waText}`;
+  const waLink = `https://wa.me/525590000000?text=${waText}`;
 
   return `
     <div class="detail-page container animate-fade-in">

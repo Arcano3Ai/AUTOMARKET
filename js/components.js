@@ -1,6 +1,6 @@
 // ── AUTO CARD COMPONENT (Velocity Noir Ultra) ──────────────────
 window.AutoCard = (auto) => {
-  const isFav = window.Wishlist?.getFavorites().includes(auto.id);
+  const isFav = window.Wishlist?.getFavorites().some(f => String(f) === String(auto.id));
   const isOutlet = auto.tipo === 'outlet';
 
   return `

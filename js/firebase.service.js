@@ -14,29 +14,37 @@ window.FirebaseService = (() => {
     if (!window.AM_CONFIG?.features?.firebaseAuth) return;
 
     try {
-      // Dynamically load Firebase SDK from CDN
-      await loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js', true);
-      await loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js', true);
-      await loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js', true);
-      await loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js', true);
-      if (window.AM_CONFIG.features.analytics) {
-        await loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js', true);
+      // Usando Firebase SDK v8.10 (Estable y 100% compatible con Vanilla JavaScript)
+      try {
+           await loadScript('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
+           await loadScript('https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js');
+           await loadScript('https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js');
+           await loadScript('https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js');
+      } catch (e) {
+           throw new Error('Fallo al descargar librerías de Google. ¿Tienes bloqueadores de anuncios (AdBlock)?');
       }
 
-      // Use modular SDK via compat layer (simpler for this SPA setup)
-      // NOTE: CDN provides window.firebase
-      app = firebase.initializeApp(window.AM_CONFIG.firebase);
+      // Inicializa
+      if (!window.firebase) {
+           throw new Error('El objeto window.firebase no se pudo crear.');
+      }
+      
+      if (!firebase.apps || !firebase.apps.length) {
+          app = firebase.initializeApp(window.AM_CONFIG.firebase);
+      } else {
+          app = firebase.app();
+      }
+      
       auth = firebase.auth();
       firestore = firebase.firestore();
       storage = firebase.storage();
-      if (window.AM_CONFIG.features.analytics) {
-        analytics = firebase.analytics();
-      }
 
       initialized = true;
       console.log('[Firebase] ✅ Initialized');
     } catch (err) {
       console.error('[Firebase] Init failed:', err);
+      if (window.showToast) window.showToast('Error cargando Firebase: ' + err.message, 'error');
+      throw err; // Burbujear error
     }
   }
 
@@ -65,11 +73,20 @@ window.FirebaseService = (() => {
 
     async loginGoogle() {
       await init();
-      if (!auth) throw new Error('Firebase no disponible');
+      if (!auth) throw new Error('Cargador de Google falló. Revisa tu VPN o AdBlocker.');
       const provider = new firebase.auth.GoogleAuthProvider();
       provider.addScope('email');
-      const result = await auth.signInWithPopup(provider);
-      return await result.user.getIdToken();
+      
+      // Intentamos con Popup normal
+      try {
+          const result = await auth.signInWithPopup(provider);
+          return { token: await result.user.getIdToken(), user: result.user };
+      } catch (err) {
+          console.warn('[Firebase] Popup falló (COOP policy). Lanzando Redirect...', err);
+          // Si el Popup falla por protocolos de Cross-Origin o Browser duro, hacemos Redirect forzoso.
+          await auth.signInWithRedirect(provider);
+          return { redirecting: true };
+      }
     },
 
     async register(email, password, name) {
@@ -96,7 +113,19 @@ window.FirebaseService = (() => {
 
     onStateChange(callback) {
       init().then(() => {
-        if (auth) auth.onAuthStateChanged(callback);
+        if (!auth) return;
+        
+        // Atrapa sesiones en vuelo procedentes de un Redirect (cuando el navegador reabre Automarket)
+        auth.getRedirectResult().then(async (result) => {
+            if (result.user) {
+                const token = await result.user.getIdToken();
+                const sessionLoc = { ...result.user, token: token, loginAt: Date.now(), role: 'admin' };
+                localStorage.setItem('automarket_auth', JSON.stringify(sessionLoc));
+                if(window.updateAuthNav) window.updateAuthNav();
+            }
+        }).catch(e => console.error('Redirect result error', e));
+
+        auth.onAuthStateChanged(callback);
       });
     },
 
@@ -138,13 +167,11 @@ window.FirebaseService = (() => {
 
     async addAuto(data) {
       await init();
-      const token = await Auth.getToken();
-      const res = await fetch(`${window.AM_CONFIG.API_BASE}/api/autos`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-        body: JSON.stringify(data)
+      const docRef = await firestore.collection('autos').add({
+         ...data,
+         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       });
-      return res.json();
+      return { success: true, auto: { id: docRef.id, ...data } };
     },
 
     async getFavorites(ids) {
@@ -178,8 +205,16 @@ window.FirebaseService = (() => {
           }
         });
         xhr.addEventListener('load', () => {
-          const data = JSON.parse(xhr.responseText);
-          resolve(data.urls || []);
+          try {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              const data = JSON.parse(xhr.responseText);
+              resolve(data.urls || []);
+            } else {
+              reject(new Error(`Error ${xhr.status}: ${xhr.statusText}`));
+            }
+          } catch (err) {
+            reject(new Error('Respuesta inválida del servidor'));
+          }
         });
         xhr.addEventListener('error', reject);
         xhr.open('POST', `${window.AM_CONFIG.API_BASE}/api/upload`);

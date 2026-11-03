@@ -58,7 +58,17 @@ async function renderRoute() {
     }
   } else {
     // Exact match or fallback empty to '/'
-    const matchHash = hash === '' ? '/' : hash;
+    // Parse Query Strings (ej: /catalogo?marca=Nissan)
+    let [baseHash, queryString] = hash.split('?');
+    const matchHash = baseHash === '' ? '/' : baseHash;
+    
+    if (queryString && matchHash === '/catalogo') {
+       const params = new URLSearchParams(queryString);
+       if (params.has('marca')) {
+         sessionStorage.setItem('filter_brand', params.get('marca'));
+       }
+    }
+
     let pageFn = routes[matchHash];
 
     // Auth Guards — con try/catch defensivo en caso de localStorage corrupto

@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#050510"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="icon" type="image/png" href="./img/app-icon.png"/>
+  <link rel="apple-touch-icon" href="./img/app-icon.png"/>
   <title>AUTOMARKET — Tu próximo auto, garantizado</title>
   <meta name="description" content="AUTOMARKET es el marketplace líder de compra y venta de autos seminuevos en México. Miles de autos verificados, garantía incluida y financiamiento en minutos."/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -220,5 +224,14 @@
 <script src="js/pages/construction.js"></script>
 <script src="js/ai-agent.js"></script>
 <script src="js/app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('✅ PWA Service Worker registrado'))
+        .catch(err => console.log('❌ Falló registro PWA:', err));
+    });
+  }
+</script>
 </body>
 </html>

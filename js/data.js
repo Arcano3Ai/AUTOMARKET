@@ -6,16 +6,115 @@
 const AUTOMARKET_DB = {
   autos: [
     {
+      id: 101,
+      marca: 'Ferrari', modelo: 'SF90 Stradale Assetto Fiorano', año: 2024,
+      precio: 12500000, pago_mensual: 195000,
+      km: 1200, transmision: 'Automático F1 DCT 8 vel', motor: '4.0L V8 Twin-Turbo PHEV 1,000 HP',
+      color: 'Rosso Corsa', combustible: 'Híbrido Enchufable',
+      ciudad: 'Ciudad de México', estado: 'CDMX',
+      fotos: [
+        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&w=1200&q=85',
+        'https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&w=1200&q=85',
+        'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&w=1200&q=85'
+      ],
+      descripcion: 'Ferrari SF90 Stradale 2024 con paquete Assetto Fiorano original. Tracción integral eAWD, suspensión Multimatic derivada de competición GT, alerón de fibra de carbono y escapes de titanio. 0 a 100 km/h en 2.5 segundos. Garantía oficial Ferrari Power 7 años.',
+      caracteristicas: ['Paquete Assetto Fiorano', 'Frenos Carbono-Cerámicos CCM', 'Interior Fibra de Carbono Racing', 'Sistema de Telemetría Ferrari', 'Capó con venting activo'],
+      garantia: 'Garantía Oficial Ferrari 7 Años',
+      verificado: true, destacado: true, vendido: false,
+      categoria: 'Deportivo',
+      tipo: 'regular'
+    },
+    {
+      id: 102,
+      marca: 'Lamborghini', modelo: 'Revuelto V12 Híbrido HPEV', año: 2024,
+      precio: 14200000, pago_mensual: 220000,
+      km: 850, transmision: 'Automático Doble Embrague 8 vel', motor: '6.5L V12 Atmosférico + 3 Motores Eléctricos 1,015 HP',
+      color: 'Verde Mantis', combustible: 'Híbrido',
+      ciudad: 'Ciudad de México', estado: 'CDMX',
+      fotos: [
+        'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&w=1200&q=85',
+        'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&w=1200&q=85',
+        'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&w=1200&q=85'
+      ],
+      descripcion: 'Lamborghini Revuelto 2024 — El primer superdeportivo V12 HPEV de la historia. Chasis monocasco de carbono Monofuselage, alerón trasero activo con 3 posiciones y vectorización de par eléctrico. Estado de concurso con inspección de 120 puntos certificada AUTOMARKET.',
+      caracteristicas: ['Monocasco de Carbono Monofuselage', 'Frenos Carbocerámicos CCB Plus', 'Sonido V12 a 9,500 RPM', 'Cámara 360 y Asistente ADAS', 'Llantas forjadas Altanero 21"/22"'],
+      garantia: 'Garantía Lamborghini Selezione 24 Meses',
+      verificado: true, destacado: true, vendido: false,
+      categoria: 'Deportivo',
+      tipo: 'regular'
+    },
+    {
+      id: 103,
+      marca: 'Ferrari', modelo: '296 GTB Assetto', año: 2023,
+      precio: 7950000, pago_mensual: 125000,
+      km: 3800, transmision: 'Automático F1 8 vel', motor: '3.0L V6 Twin-Turbo PHEV 830 HP',
+      color: 'Giallo Modena', combustible: 'Híbrido Enchufable',
+      ciudad: 'Monterrey', estado: 'NL',
+      fotos: [
+        'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&w=1200&q=85',
+        'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&w=1200&q=85'
+      ],
+      descripcion: 'Ferrari 296 GTB 2023 en color Giallo Modena con franjas Assetto Fiorano. Emocionante entrega de potencia con sonido V6 apodado "pequeño V12". Factura original, un solo dueño.',
+      caracteristicas: ['Asientos Daytona Racing Carbono', 'Apple CarPlay Inalámbrico', 'Frenos Cerámicos Brembo', 'Sistema de Elevación Frontal (Lifter)'],
+      garantia: '12 meses / 20,000 km Certificada',
+      verificado: true, destacado: true, vendido: false,
+      categoria: 'Deportivo',
+      tipo: 'regular'
+    },
+    {
+      id: 104,
+      marca: 'Lamborghini', modelo: 'Huracán STO', año: 2023,
+      precio: 8400000, pago_mensual: 132000,
+      km: 4200, transmision: 'Automático LDF 7 vel', motor: '5.2L V10 Atmosférico 640 HP',
+      color: 'Blu Laufey / Arancio California', combustible: 'Gasolina',
+      ciudad: 'Guadalajara', estado: 'JAL',
+      fotos: [
+        'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&w=1200&q=85',
+        'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&w=1200&q=85'
+      ],
+      descripcion: 'Lamborghini Huracán STO (Super Trofeo Omologata) 2023. El auto de carreras homologado para la calle. Cofango de fibra de carbono de una sola pieza, toma de aire snorkel de techo y alerón aerodinámico ajustable.',
+      caracteristicas: ['Carrocería 75% Fibra de Carbono', 'Arnés de 4 puntos y Jaula Titanio', 'Frenos Brembo CCM-R F1', 'Escape Akrapovic Deportivo'],
+      garantia: '12 meses AUTOMARKET Black Edition',
+      verificado: true, destacado: true, vendido: false,
+      categoria: 'Deportivo',
+      tipo: 'regular'
+    },
+    {
+      id: 105,
+      marca: 'Lamborghini', modelo: 'Urus Performante', año: 2023,
+      precio: 6900000, pago_mensual: 108000,
+      km: 9500, transmision: 'Automático 8 vel', motor: '4.0L V8 BiTurbo 666 HP',
+      color: 'Giallo Auge', combustible: 'Gasolina',
+      ciudad: 'Ciudad de México', estado: 'CDMX',
+      fotos: [
+        'https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&w=1200&q=85',
+        'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&w=1200&q=85'
+      ],
+      descripcion: 'Lamborghini Urus Performante 2023 — El SUV más rápido en Pikes Peak. Capó de fibra de carbono visible con ventilación activa, alerón trasero con carga aerodinámica aumentada y modo de manejo RALLY.',
+      caracteristicas: ['Modo de Manejo RALLY', 'Capó y Techo en Fibra de Carbono', 'Escape Akrapovic de Titanio', 'Sistema de Sonido Bang & Olufsen 3D'],
+      garantia: '12 meses Certificada',
+      verificado: true, destacado: true, vendido: false,
+      categoria: 'SUV Premium',
+      tipo: 'regular'
+    },
+    {
       id: 1,
       marca: 'Toyota', modelo: 'Corolla', año: 2023,
       precio: 349000, pago_mensual: 5820,
       km: 15400, transmision: 'Automático', motor: '1.8L 4 cilindros',
-      color: 'Blanco Pérla', combustible: 'Gasolina',
+      color: 'Blanco Perla', combustible: 'Gasolina',
       ciudad: 'Ciudad de México', estado: 'CDMX',
       fotos: [
         'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&w=800&q=80',
-        'https://images.unsplash.com/photo-1549317661-bd32c8ce0db?auto=format&w=800&q=80',
-      ,
+        'https://images.unsplash.com/photo-1549317661-bd32c8ce0db?auto=format&w=800&q=80'
+      ],
+      descripcion: 'Toyota Corolla 2023 en impecables condiciones. Garantía AUTOMARKET Plus incluida y revisión técnica de 120 puntos certificada. Listo para cualquier prueba.',
+      caracteristicas: ['Sensores de reversa', 'Asientos de tela premium', 'Apple CarPlay / Android Auto', 'Factura de agencia'],
+      garantia: '3 meses / 5,000 km',
+      verificado: true, destacado: false, vendido: false,
+      categoria: 'Sedán',
+      tipo: 'regular'
+    },
     {
       id: 25,
       marca: 'Kia', modelo: 'Sorento', año: 2021,
@@ -483,13 +582,6 @@ const AUTOMARKET_DB = {
       verificado: true, destacado: false, vendido: false,
       categoria: 'SUV',
       tipo: 'regular'
-    },
-],
-      descripcion: 'Toyota Corolla 2023 en excelentes condiciones. Vehículo de un solo dueño, con mantenimiento al día en agencia Toyota. Cuenta con sistema de seguridad Toyota Safety Sense, pantalla táctil de 8", Apple CarPlay y Android Auto.',
-      caracteristicas: ['Toyota Safety Sense 2.0','Pantalla táctil 8"','Apple CarPlay / Android Auto','Cámara trasera','Faros LED','Sensores de reversa','Control crucero adaptativo','6 bolsas de aire'],
-      garantia: '3 meses / 5,000 km',
-      verificado: true, destacado: true, vendido: false,
-      categoria: 'Sedán',
     },
     {
       id: 2,
@@ -1163,10 +1255,10 @@ const AUTOMARKET_DB = {
   ],
 
   marcas: [
+    'Ferrari', 'Lamborghini', 'Porsche', 'BMW', 'Audi', 'Mercedes-Benz', 
     'Nissan', 'Chevrolet', 'Volkswagen', 'Toyota', 'Kia', 'Honda', 
     'Mazda', 'Ford', 'MG', 'Hyundai', 'Seat', 'Renault', 'Suzuki', 
-    'Jeep', 'Peugeot', 'Dodge', 'Fiat', 'Chirey', 'BMW', 'Audi', 
-    'Mercedes-Benz', 'Volvo', 'Porsche', 'GMC', 'Mitsubishi', 'JAC', 'BYD', 'Omoda'
+    'Jeep', 'Peugeot', 'Dodge', 'Fiat', 'Volvo', 'GMC', 'Mitsubishi'
   ],
   categorias: ['Sedán','Hatchback','SUV','SUV Compacto','SUV Premium','Sedán Premium','Deportivo','Pick-Up'],
   ciudades: ['Ciudad de México','Guadalajara','Monterrey','Puebla','Tijuana','León','Querétaro','Mérida','Toluca'],
@@ -1183,33 +1275,22 @@ const AUTOMARKET_DB = {
     { valor:'3 Meses', label:'Garantía',            raw: 0,     sufijo: '' },
     { valor:'24 hrs',  label:'Pago al Vendedor',    raw: 0,     sufijo: '' },
   ],
-
   marcasLogos: [
-    { nombre:'Nissan', color:'#C3002F' },
-    { nombre:'Chevrolet', color:'#CC9900' },
-    { nombre:'VW', color:'#001E50' },
-    { nombre:'Volkswagen', color:'#001E50' },
-    { nombre:'Toyota', color:'#EB0A1E' },
-    { nombre:'Kia', color:'#BB0030' },
-    { nombre:'Honda', color:'#CC0000' },
-    { nombre:'Mazda', color:'#1B2B4B' },
-    { nombre:'Ford', color:'#003478' },
-    { nombre:'MG', color:'#660000' },
-    { nombre:'Hyundai', color:'#002C5F' },
-    { nombre:'Seat', color:'#333333' },
-    { nombre:'Renault', color:'#FFCC00' },
-    { nombre:'Suzuki', color:'#003399' },
-    { nombre:'Jeep', color:'#FFBA00' },
-    { nombre:'Peugeot', color:'#001155' },
-    { nombre:'Dodge', color:'#FF0000' },
-    { nombre:'Fiat', color:'#660022' },
-    { nombre:'BMW', color:'#0066B1' },
-    { nombre:'Audi', color:'#BB0A30' },
-    { nombre:'Mercedes-Benz', color:'#636369' },
-    { nombre:'Volvo', color:'#002561' },
-    { nombre:'Porsche', color:'#A8191C' },
-    { nombre:'GMC', color:'#D0021B' },
-    { nombre:'Mitsubishi', color:'#E60012' },
+    { nombre:'Ferrari', color:'#D40000', logoUrl:'https://www.google.com/s2/favicons?domain=ferrari.com&sz=128' },
+    { nombre:'Lamborghini', color:'#DDB321', logoUrl:'https://www.google.com/s2/favicons?domain=lamborghini.com&sz=128' },
+    { nombre:'Porsche', color:'#A8191C', logoUrl:'https://www.google.com/s2/favicons?domain=porsche.com&sz=128' },
+    { nombre:'BMW', color:'#0066B1', logoUrl:'https://www.google.com/s2/favicons?domain=bmw.com.mx&sz=128' },
+    { nombre:'Mercedes-Benz', color:'#636369', logoUrl:'https://www.google.com/s2/favicons?domain=mercedes-benz.com.mx&sz=128' },
+    { nombre:'Audi', color:'#BB0A30', logoUrl:'https://www.google.com/s2/favicons?domain=audi.com.mx&sz=128' },
+    { nombre:'Nissan', color:'#C3002F', logoUrl:'https://www.google.com/s2/favicons?domain=nissan.com.mx&sz=128' },
+    { nombre:'Toyota', color:'#EB0A1E', logoUrl:'https://www.google.com/s2/favicons?domain=toyota.com&sz=128' },
+    { nombre:'Honda', color:'#CC0000', logoUrl:'https://www.google.com/s2/favicons?domain=honda.mx&sz=128' },
+    { nombre:'Ford', color:'#003478', logoUrl:'https://www.google.com/s2/favicons?domain=ford.mx&sz=128' },
+    { nombre:'Chevrolet', color:'#CC9900', logoUrl:'https://www.google.com/s2/favicons?domain=chevrolet.com.mx&sz=128' },
+    { nombre:'Volkswagen', color:'#001E50', logoUrl:'https://www.google.com/s2/favicons?domain=vw.com.mx&sz=128' },
+    { nombre:'Mazda', color:'#1B2B4B', logoUrl:'https://www.google.com/s2/favicons?domain=mazda.mx&sz=128' },
+    { nombre:'Jeep', color:'#FFBA00', logoUrl:'https://www.google.com/s2/favicons?domain=jeep.com.mx&sz=128' },
+    { nombre:'Volvo', color:'#002561', logoUrl:'https://www.google.com/s2/favicons?domain=volvocars.com&sz=128' },
   ],
 
   pasos_compra: [
@@ -1237,11 +1318,11 @@ const AUTOMARKET_DB = {
 // Helper functions
 const DB = {
   getAll: () => AUTOMARKET_DB.autos.filter(a => !a.vendido),
-  getById: (id) => AUTOMARKET_DB.autos.find(a => a.id === parseInt(id)),
+  getById: (id) => AUTOMARKET_DB.autos.find(a => a.id == id || String(a.id) === String(id)),
   getDestacados: () => AUTOMARKET_DB.autos.filter(a => a.destacado && !a.vendido),
   getSimilares: (auto, limit=4) => AUTOMARKET_DB.autos.filter(a =>
-    a.id !== auto.id && !a.vendido &&
-    (a.categoria === auto.categoria || a.marca === auto.marca)
+    String(a.id) !== String(auto?.id) && !a.vendido &&
+    (a.categoria === auto?.categoria || a.marca === auto?.marca)
   ).slice(0, limit),
   filtrar: ({ marca, año_min, año_max, precio_min, precio_max, transmision, combustible, categoria, busqueda } = {}) => {
     return AUTOMARKET_DB.autos.filter(a => {

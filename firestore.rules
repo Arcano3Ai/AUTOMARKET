@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─────────────────────────────────────────────────────────────
+    // VALIDACIÓN DE LOGINS GOOGLE DE AUTOMARKET
+    // ─────────────────────────────────────────────────────────────
+    function isAuthed() {
+      return request.auth != null;
+    }
+    
+    function isVerifiedAdmin() {
+      // Verificamos rol Admin en el documento users del usuario autenticado
+      return isAuthed() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // INVENTARIO AUTOMARKET (AUTOS)
+    // ─────────────────────────────────────────────────────────────
+    match /autos/{autoId} {
+      allow read: if true; 
+      allow create, update, delete: if isVerifiedAdmin();
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // COTIZADOR SELL-TO-US (LEADS)
+    // ─────────────────────────────────────────────────────────────
+    match /leads/{leadId} {
+      allow create: if true; 
+      allow update, delete: if isVerifiedAdmin(); 
+      allow read: if isVerifiedAdmin(); 
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // RESERVAS DE APARTADOS (CHECKOUT CARRO)
+    // ─────────────────────────────────────────────────────────────
+    match /apartados/{apartadoId} {
+      allow create: if isAuthed();
+      allow read: if isAuthed() && (request.auth.uid == resource.data.userId || isVerifiedAdmin());
+      allow update, delete: if isVerifiedAdmin();
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // CITAS (PROBAR MANEJO / TEST-DRIVE)
+    // ─────────────────────────────────────────────────────────────
+    match /citas/{citaId} {
+      allow create: if isAuthed();
+      allow read: if isAuthed() && (request.auth.uid == resource.data.userId || isVerifiedAdmin());
+      allow update, delete: if isVerifiedAdmin();
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // PERFIL DE ROL Y USUARIOS
+    // Previene escalamiento de privilegios de usuario regular a admin
+    // ─────────────────────────────────────────────────────────────
+    match /users/{userId} {
+      allow read: if isAuthed() && (request.auth.uid == userId || isVerifiedAdmin());
+      allow create: if isAuthed() && request.auth.uid == userId 
+                    && (!('role' in request.resource.data) || request.resource.data.role == 'client');
+      allow update: if isAuthed() && request.auth.uid == userId 
+                    && (!('role' in request.resource.data) || request.resource.data.role == resource.data.role || isVerifiedAdmin());
+      allow delete: if false;
+    }
+
+  }
+}

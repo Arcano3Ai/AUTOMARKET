@@ -66,44 +66,18 @@ window.Pages.renderCheckout = (id) => {
             <p style="color:var(--clr-text-dim);margin-bottom:var(--sp-6)">$5,000 MXN reembolsables si no continúas con la compra.</p>
 
             <div class="pay-options" style="margin-bottom:var(--sp-6)">
-              <div class="pay-option active" id="pay-card" onclick="document.querySelectorAll('.pay-option').forEach(c=>c.classList.remove('active'));this.classList.add('active');document.getElementById('card-fields').style.display='block';document.getElementById('spei-fields').style.display='none'">
-                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-                <div><div style="font-weight:700;margin-bottom:2px">Tarjeta</div><div style="font-size:11px;color:var(--clr-text-dim)">Visa · Mastercard · AMEX</div></div>
-              </div>
-              <div class="pay-option" id="pay-spei" onclick="document.querySelectorAll('.pay-option').forEach(c=>c.classList.remove('active'));this.classList.add('active');document.getElementById('card-fields').style.display='none';document.getElementById('spei-fields').style.display='block'">
+              <div class="pay-option active" style="cursor:default">
                 <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                <div><div style="font-weight:700;margin-bottom:2px">SPEI</div><div style="font-size:11px;color:var(--clr-text-dim)">Transferencia bancaria</div></div>
+                <div><div style="font-weight:700;margin-bottom:2px">Efectivo / Transferencia</div><div style="font-size:11px;color:var(--clr-text-dim)">Pago directo al asesor</div></div>
               </div>
             </div>
 
-            <div id="card-fields">
-              <div class="form-group" style="margin-bottom:var(--sp-3)">
-                <label class="form-label">Número de Tarjeta</label>
-                <input type="text" id="co-card" class="input-base" placeholder="4242 4242 4242 4242" maxlength="19"
-                  oninput="this.value=this.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim()">
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--sp-3)">
-                <div class="form-group">
-                  <label class="form-label">Mes</label>
-                  <input type="text" class="input-base" placeholder="MM" maxlength="2">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">Año</label>
-                  <input type="text" class="input-base" placeholder="YY" maxlength="2">
-                </div>
-                <div class="form-group">
-                  <label class="form-label">CVC</label>
-                  <input type="text" class="input-base" placeholder="123" maxlength="3">
-                </div>
-              </div>
-            </div>
-
-            <div id="spei-fields" style="display:none;background:var(--clr-surface-mid);border:1px solid var(--clr-surface-high);border-radius:var(--r-lg);padding:var(--sp-4)">
-              <p style="color:var(--clr-text-muted);font-size:var(--fs-sm);margin-bottom:var(--sp-3)">Al continuar recibirás por correo:</p>
+            <div id="spei-fields" style="background:var(--clr-surface-mid);border:1px solid var(--clr-surface-high);border-radius:var(--r-lg);padding:var(--sp-4)">
+              <p style="color:var(--clr-text-muted);font-size:var(--fs-sm);margin-bottom:var(--sp-3)">Al confirmar el apartado:</p>
               <div style="display:flex;flex-direction:column;gap:var(--sp-2);font-size:var(--fs-sm)">
-                <div>🏦 <strong style="color:white">BBVA</strong> · CLABE: 012 180 08000000001 6</div>
-                <div>💰 Monto: <strong style="color:var(--clr-primary-light)">$5,000.00 MXN</strong></div>
-                <div>📋 Concepto: <strong style="color:white">AMKT-${auto.id}-APARTADO</strong></div>
+                <div>📞 Un asesor te contactará a la brevedad.</div>
+                <div>🏦 Te compartiremos las instrucciones para depositar o hacer transferencia directa.</div>
+                <div>💰 Monto requerido: <strong style="color:var(--clr-primary-light)">$5,000.00 MXN</strong></div>
               </div>
             </div>
 
@@ -144,7 +118,7 @@ window.Pages.renderCheckout = (id) => {
             
             <div style="display:flex;gap:var(--sp-3)">
               <button class="btn-ghost-md" style="flex:1" onclick="window.Pages.checkoutGo(2)">← Regresar</button>
-              <button class="btn-primary-lg" style="flex:2" onclick="window.Pages.checkoutSubmit('${auto.id}')">
+              <button class="btn-primary-lg" style="flex:2" onclick="window.Pages.checkoutSubmit('${auto.id}', event)">
                 🔒 Confirmar Apartado
               </button>
             </div>
@@ -208,13 +182,7 @@ window.Pages.checkoutNext = (step) => {
     }
   }
   if (step === 2) {
-    const payCard = document.getElementById('pay-card')?.classList.contains('active');
-    if (payCard) {
-      const card = document.getElementById('co-card')?.value?.replace(/\s/g,'');
-      if (!card || card.length < 16) {
-        showToast('Ingresa un número de tarjeta válido', 'error'); return;
-      }
-    }
+    // Ya no hay validación de tarjeta de crédito, es flujo directo
   }
   window.Pages.checkoutGo(step + 1);
 };
@@ -234,15 +202,40 @@ window.Pages.checkoutGo = (step) => {
   });
 };
 
-window.Pages.checkoutSubmit = (autoId) => {
+window.Pages.checkoutSubmit = async (autoId, evt) => {
   const terms = document.getElementById('co-terms');
   if (!terms?.checked) {
     showToast('Debes aceptar los términos y condiciones', 'error'); return;
   }
-  const folio = `AMKT-${autoId}-${Math.floor(Math.random()*9000+1000)}`;
-  window.Pages.checkoutGo('success');
-  const folioEl = document.getElementById('folio-display');
-  if (folioEl) folioEl.querySelector('div:last-child').textContent = folio;
+
+  // Deshabilitar botón para evitar doble submit
+  const btn = evt?.currentTarget || document.querySelector('#step-3 .btn-primary-lg');
+  const originalText = btn ? btn.innerHTML : 'Confirmar';
+  if (btn) {
+    btn.innerHTML = 'Procesando...';
+    btn.disabled = true;
+  }
+
+  try {
+    const res = await window.API.crearApartado(autoId, { 
+      metodoPago: 'efectivo_transferencia',
+      datosContacto: { 
+        nombre: document.getElementById('co-name')?.value,
+        telefono: document.getElementById('co-phone')?.value,
+        email: document.getElementById('co-email')?.value
+      } 
+    });
+    
+    window.Pages.checkoutGo('success');
+    const folioEl = document.getElementById('folio-display');
+    if (folioEl) folioEl.querySelector('div:last-child').textContent = res?.folio || 'AMKT-CONFIRMADO';
+  } catch (error) {
+    showToast('Hubo un error al confirmar el apartado', 'error');
+    if (btn) {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+    }
+  }
 };
 
 window.Pages.renderCheckoutInit = () => {};

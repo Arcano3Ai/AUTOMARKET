@@ -40,7 +40,7 @@ window.Pages.renderAbout = () => {
                   <li><strong style="color:white">📞 Teléfono:</strong> 55 9000 0000</li>
                </ul>
 
-               <button class="btn-primary-lg w-full" style="margin-top:var(--sp-8);" onclick="window.location.hash='#/testdrive'; showToast('Redirigiendo a Agendar Cita')">Agendar Cita en Sucursal</button>
+               <button class="btn-primary-lg w-full" style="margin-top:var(--sp-8);" onclick="window.location.hash='#/servicio'; showToast('Redirigiendo a Servicio')">Agendar Cita en Sucursal</button>
             </div>
             
             <div class="animate-slide-up delay-200" style="border-radius:var(--r-2xl); overflow:hidden; border:1px solid var(--clr-surface-high); box-shadow:var(--sh-xl);">

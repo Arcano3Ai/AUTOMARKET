@@ -9,53 +9,104 @@ window.Pages.renderHome = () => {
 
   return `
     <!-- ═══════════════════════════════════════
-         HERO
+         HERO EXOTIC & LUXURY SHOWCASE
     ═══════════════════════════════════════ -->
     <section class="hero" id="hero">
       <img
-        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&w=1600&q=80"
-        alt="BMW SportsCar"
+        src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&w=1920&q=85"
+        alt="Ferrari SF90 Stradale Exotic"
         class="hero-bg"
+        id="hero-bg-img"
         loading="eager"
         fetchpriority="high"
       />
       <div class="container">
         <div class="hero-inner">
           <div class="hero-content animate-fade-in">
-            <span class="hero-eyebrow">Marketplace #1 en México</span>
+            <span class="hero-eyebrow">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              Exotic & Supercars Edition · #1 en México
+            </span>
 
             <h1 class="hero-title">
-              Tu Próximo Auto,<br>
-              <span class="hero-accent">Garantizado</span>
+              Tu Próximo <br>
+              <span class="hero-accent">Exótico & Deportivo</span>
             </h1>
 
             <p class="hero-subtitle">
-              Más de 15,000 autos verificados con historial limpio, garantía incluida y financiamiento aprobado en minutos.
+              Los superdeportivos más codiciados del planeta: <strong>Ferrari</strong>, <strong>Lamborghini</strong> y <strong>Porsche</strong>. Inspección certificada de 120 puntos y entrega inmediata blindada.
             </p>
 
             <div class="hero-ctas">
-              <a href="#/catalogo" class="btn-primary-lg">
-                Ver Catálogo
+              <a href="#/catalogo?marca=Ferrari" class="btn-primary-lg">
+                Colección Exótica
                 <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </a>
-              <a href="#/financiamiento" class="btn-ghost-lg">
-                Calcular Crédito
+              <a href="#/catalogo" class="btn-ghost-lg">
+                Ver Todo el Catálogo
               </a>
             </div>
 
             <div class="hero-trust">
               <div class="hero-trust-avatars">
-                <div class="hero-trust-avatar">CG</div>
-                <div class="hero-trust-avatar">MR</div>
-                <div class="hero-trust-avatar">JL</div>
+                <div class="hero-trust-avatar">🏎️</div>
+                <div class="hero-trust-avatar">🏁</div>
+                <div class="hero-trust-avatar">💎</div>
                 <div class="hero-trust-avatar">+</div>
               </div>
               <div class="hero-trust-text">
-                <strong>+15,000 clientes satisfechos</strong>
-                ⭐⭐⭐⭐⭐ 4.9 rating promedio
+                <strong>+15,000 unidades y exóticos entregados</strong>
+                ⭐⭐⭐⭐⭐ Experiencia VIP de compra garantizada
               </div>
             </div>
           </div>
+
+          <!-- HERO VISUAL: SUPERCAR SHOWCASE CARD -->
+          <div class="hero-visual animate-slide-up delay-200">
+            <div class="supercar-hero-card">
+              <div class="supercar-badge">
+                <span class="pulse-dot"></span> UNIDAD DE EXHIBICIÓN VIP
+              </div>
+              <div class="supercar-img-container">
+                <img id="hero-showcase-img" src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&w=900&q=85" alt="Lamborghini Revuelto" class="supercar-img">
+              </div>
+              <div class="supercar-card-body">
+                <div class="supercar-brand-row">
+                  <span id="hero-showcase-brand" class="supercar-brand">LAMBORGHINI</span>
+                  <span id="hero-showcase-year" class="supercar-year">2024</span>
+                </div>
+                <h3 id="hero-showcase-model" class="supercar-model">Revuelto V12 HPEV</h3>
+                <div class="supercar-specs-chips" id="hero-showcase-chips">
+                  <span>🚀 0-100: 2.5s</span>
+                  <span>⚡ 1,015 HP</span>
+                  <span>🔊 V12 Híbrido</span>
+                </div>
+                <div class="supercar-price-row">
+                  <div>
+                    <span class="supercar-price-lbl">Precio de Entrega</span>
+                    <strong id="hero-showcase-price" class="supercar-price">$14,200,000 MXN</strong>
+                  </div>
+                  <a id="hero-showcase-link" href="#/auto/102" class="btn-primary-sm">Apartar Unidad →</a>
+                </div>
+
+                <div class="supercar-carousels-thumbs">
+                  <button class="thumb-btn active" onclick="window.Pages.setHeroCar('lambo', this)" title="Lamborghini Revuelto">
+                    <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&w=200&q=70" alt="Lamborghini">
+                  </button>
+                  <button class="thumb-btn" onclick="window.Pages.setHeroCar('ferrari_sf90', this)" title="Ferrari SF90 Stradale">
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&w=200&q=70" alt="Ferrari SF90">
+                  </button>
+                  <button class="thumb-btn" onclick="window.Pages.setHeroCar('ferrari_296', this)" title="Ferrari 296 GTB">
+                    <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&w=200&q=70" alt="Ferrari 296">
+                  </button>
+                  <button class="thumb-btn" onclick="window.Pages.setHeroCar('porsche', this)" title="Porsche 911 GT3">
+                    <img src="https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&w=200&q=70" alt="Porsche">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -109,8 +160,11 @@ window.Pages.renderHome = () => {
         <div class="brands-grid">
           ${marcasLogos.slice(0, 12).map(m => `
             <a href="#/catalogo?marca=${encodeURIComponent(m.nombre)}" class="brand-card">
-              <div class="brand-logo-placeholder" style="background:${m.color}18; border:1px solid ${m.color}33">
-                <span style="color:${m.color};font-size:11px;font-weight:900;line-height:1;text-align:center">${m.nombre.substring(0,3).toUpperCase()}</span>
+              <div class="brand-logo-placeholder" style="background:#ffffff; border:1px solid var(--clr-surface-high); display:flex; align-items:center; justify-content:center; padding:16px;">
+                ${m.logoUrl 
+                  ? `<img src="${m.logoUrl}" alt="${m.nombre}" style="width:100%; height:100%; object-fit:contain;" loading="lazy">` 
+                  : `<span style="color:${m.color};font-size:11px;font-weight:900;line-height:1;text-align:center">${m.nombre.substring(0,3).toUpperCase()}</span>`
+                }
               </div>
               <span class="brand-name">${m.nombre}</span>
             </a>
@@ -242,4 +296,85 @@ window.Pages.renderHomeInit = () => {
       if (id) window.Wishlist.toggleFavorite(id);
     });
   });
+};
+
+const HERO_SUPER_CARS = {
+  lambo: {
+    brand: 'LAMBORGHINI',
+    year: '2024',
+    model: 'Revuelto V12 HPEV',
+    chips: ['🚀 0-100: 2.5s', '⚡ 1,015 HP', '🔊 V12 Híbrido'],
+    price: '$14,200,000 MXN',
+    img: 'https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&w=900&q=85',
+    bg: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&w=1920&q=85',
+    link: '#/auto/102'
+  },
+  ferrari_sf90: {
+    brand: 'FERRARI',
+    year: '2024',
+    model: 'SF90 Stradale Assetto',
+    chips: ['🏎️ 0-100: 2.5s', '⚡ 1,000 HP', '🔥 V8 Twin-Turbo'],
+    price: '$12,500,000 MXN',
+    img: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&w=900&q=85',
+    bg: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&w=1920&q=85',
+    link: '#/auto/101'
+  },
+  ferrari_296: {
+    brand: 'FERRARI',
+    year: '2023',
+    model: '296 GTB Assetto',
+    chips: ['⚡ 830 HP', '🏁 0-100: 2.9s', '🟡 Giallo Modena'],
+    price: '$7,950,000 MXN',
+    img: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&w=900&q=85',
+    bg: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&w=1920&q=85',
+    link: '#/auto/103'
+  },
+  porsche: {
+    brand: 'PORSCHE',
+    year: '2024',
+    model: '911 GT3 RS Weissach',
+    chips: ['🏁 9,000 RPM', '⚡ 525 HP', '⏱️ Nürburgring Spec'],
+    price: '$7,500,000 MXN',
+    img: 'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&w=900&q=85',
+    bg: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&w=1920&q=85',
+    link: '#/auto/106'
+  }
+};
+
+window.Pages.setHeroCar = (key, btnEl) => {
+  const data = HERO_SUPER_CARS[key];
+  if (!data) return;
+
+  const showcaseImg = document.getElementById('hero-showcase-img');
+  const bgImg = document.getElementById('hero-bg-img');
+  const brandEl = document.getElementById('hero-showcase-brand');
+  const yearEl = document.getElementById('hero-showcase-year');
+  const modelEl = document.getElementById('hero-showcase-model');
+  const priceEl = document.getElementById('hero-showcase-price');
+  const linkEl = document.getElementById('hero-showcase-link');
+  const chipsEl = document.getElementById('hero-showcase-chips');
+
+  if (showcaseImg) {
+    showcaseImg.style.opacity = '0';
+    setTimeout(() => {
+      showcaseImg.src = data.img;
+      showcaseImg.style.opacity = '1';
+    }, 150);
+  }
+  if (bgImg && data.bg) {
+    bgImg.src = data.bg;
+  }
+  if (brandEl) brandEl.textContent = data.brand;
+  if (yearEl) yearEl.textContent = data.year;
+  if (modelEl) modelEl.textContent = data.model;
+  if (priceEl) priceEl.textContent = data.price;
+  if (linkEl) linkEl.href = data.link;
+  if (chipsEl) {
+    chipsEl.innerHTML = data.chips.map(c => `<span>${c}</span>`).join('');
+  }
+
+  if (btnEl) {
+    document.querySelectorAll('.supercar-carousels-thumbs .thumb-btn').forEach(b => b.classList.remove('active'));
+    btnEl.classList.add('active');
+  }
 };

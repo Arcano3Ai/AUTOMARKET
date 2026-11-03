@@ -461,73 +461,7 @@ ${context ? `\nCONTEXTO DEL USUARIO: ${context}` : ''}`;
   }
 });
 
-app.post('/api/ai/chat', geminiLimiter, async (req, res) => {
-  const { message, context } = req.body;
-  if (!message?.trim()) return res.status(400).json({ error: 'Mensaje vacío' });
 
-  const KEY = process.env.GEMINI_API_KEY;
-  if (!KEY) {
-    return res.status(503).json({ error: 'IA no configurada', fallback: true });
-  }
-
-  const systemInstruction = `Eres Axel, el asesor experto y amigable de AUTOMARKET — el marketplace de autos seminuevos más confiable de México.
-
-Tu rol: ayudar a los clientes a encontrar su auto ideal, explicar créditos automotrices (plazos 12-60 meses, enganche desde 10%), agendar citas y resolver dudas sobre compra-venta.
-
-Datos clave:
-- +400 autos verificados de 28 marcas (Toyota, Honda, BMW, Nissan, Porsche, Jeep, Ford, Mazda, Chevrolet, Volvo…)
-- Garantía mínima: 3 meses / 5,000 km por vehículo
-- Inspección certificada: 120 puntos mecánicos y de carrocería
-- Crédito: aprobación en 2 hrs, enganche desde 10%, tasas desde 12% anual
-- Precios: desde $180,000 MXN hasta modelos premium +$800K
-- Pago a vendedores: 24-48 hrs | Inspección a domicilio gratuita
-- Contacto: 55 9000-0000 | WhatsApp | contacto@automarket.mx
-
-${context ? 'Contexto adicional: ' + context : ''}
-
-Instrucciones:
-- Responde SIEMPRE en español, máximo 3 oraciones por respuesta
-- Sé cálido, persuasivo y profesional
-- Usa 1-2 emojis relevantes por respuesta
-- Si preguntan por un auto específico, sugiere ir al catálogo con el link #/catalogo
-- Si quieren financiamiento, menciona que en #/financiamiento hay una calculadora`;
-
-  try {
-    const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${KEY}`,
-      {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemInstruction }] },
-          contents: [{ parts: [{ text: message }] }],
-          generationConfig: { maxOutputTokens: 220, temperature: 0.72, topP: 0.9 }
-        })
-      }
-    );
-
-    if (!geminiRes.ok) {
-      const err = await geminiRes.json().catch(() => ({}));
-      console.error('Gemini error:', geminiRes.status, err);
-      return res.status(502).json({ error: 'Error del servicio AI', fallback: true });
-    }
-
-    const data  = await geminiRes.json();
-    let   reply = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-    // Format markdown
-    reply = reply
-      .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
-      .replace(/\*(.*?)\*/g, '<i>$1</i>')
-      .replace(/#\/(\w+)/g, '<a href="#/$1" style="color:var(--clr-primary-light);text-decoration:underline">ver aquí →</a>');
-
-    res.json({ reply, model: 'gemini-1.5-flash', tokens: data.usageMetadata });
-
-  } catch (err) {
-    console.error('AI proxy error:', err);
-    res.status(500).json({ error: 'Error interno', fallback: true });
-  }
-});
 
 // ═══════════════════════════════════════════════════════
 // 7. 🚗 INVENTORY API
@@ -787,8 +721,10 @@ app.put('/api/leads/:id/status', verifyAdmin, async (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════
-// 11. 💳 APARTADOS (Reservaciones)
+// 11. 💳 APARTADOS (Reservaciones y Pagos)
 // ═══════════════════════════════════════════════════════
+const stripe = null; // Integración con Stripe eliminada a petición
+
 app.post('/api/apartados', verifyToken, async (req, res) => {
   try {
     const { autoId, metodoPago, datosContacto } = req.body;
@@ -800,19 +736,20 @@ app.post('/api/apartados', verifyToken, async (req, res) => {
       userId:    req.user.uid,
       userEmail: req.user.email,
       monto:     5000,
-      status:    'pendiente_pago',
+      status:    'pendiente_pago', // Siempre queda pendiente hasta comprobar transferencia o efectivo
       createdAt: new Date().toISOString(),
     };
 
     if (FIREBASE_READY) {
       const ref = await db.collection('apartados').add(apartado);
-      await db.collection('autos').doc(autoId).update({ apartado: true });
-      return res.status(201).json({ id: ref.id, folio, status: 'pendiente_pago' });
+      await db.collection('autos').doc(String(autoId)).update({ apartado: true }).catch(e => console.warn('No se pudo marcar auto como apartado:', e.message));
+      sendEmailNotification('apartado', apartado).catch(console.error);
+      return res.status(201).json({ id: ref.id, folio, status: apartado.status });
     }
 
     store.apartados.push({ id: `demo-${store.apartados.length + 1}`, ...apartado });
     sendEmailNotification('apartado', apartado).catch(console.error);
-    res.status(201).json({ id: `demo-${store.apartados.length}`, folio, status: 'pendiente_pago' });
+    res.status(201).json({ id: `demo-${store.apartados.length}`, folio, status: apartado.status });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Error al crear apartado' });

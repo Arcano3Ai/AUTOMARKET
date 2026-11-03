@@ -29,13 +29,13 @@ window.AM_CONFIG = {
   // FIREBASE (pega aquí tu config de la consola)
   // ─────────────────────────────────────────
   firebase: {
-    apiKey:            "YOUR_FIREBASE_API_KEY",
+    apiKey:            "AIzaSyDr_AdXbah-oYexSY6yjv75RmBLxeWbqAA",
     authDomain:        "automarket-493420.firebaseapp.com",
     projectId:         "automarket-493420",
-    storageBucket:     "automarket-493420.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId:             "YOUR_APP_ID",
-    measurementId:     "G-XXXXXXXXXX"  // Google Analytics
+    storageBucket:     "automarket-493420.firebasestorage.app",
+    messagingSenderId: "691794174348",
+    appId:             "1:691794174348:web:5ff3d38b112badfa86f6a9",
+    measurementId:     "G-52N5JN5YPG"
   },
 
   // ─────────────────────────────────────────
@@ -53,12 +53,12 @@ window.AM_CONFIG = {
   // FEATURE FLAGS
   // ─────────────────────────────────────────
   features: {
-    geminiChat:     true,  // Chatbot Axel con Gemini
-    firebaseAuth:   false, // Login real con Firebase
-    firestoreDB:    false, // Inventario en Firestore
-    cloudStorage:   false, // Imágenes en Cloud Storage
-    analytics:      false, // Google Analytics 4
-    googleMaps:     false, // Mapa en página "Nosotros"
+    geminiChat:     true,
+    firebaseAuth:   true, 
+    firestoreDB:    true, // 🔥 Habilitada Base de Datos Real via Firebase Client Side
+    cloudStorage:   false,
+    analytics:      true,
+    googleMaps:     false,
   }
 };
 

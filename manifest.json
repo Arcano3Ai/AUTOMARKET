@@ -1,0 +1,24 @@
+{
+  "name": "Automarket - Tu Próximo Auto",
+  "short_name": "Automarket",
+  "description": "Plataforma premium para comprar y vender vehículos inspeccionados y garantizados.",
+  "start_url": "/#/",
+  "display": "standalone",
+  "background_color": "#050510",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./img/app-icon.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./img/app-icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}

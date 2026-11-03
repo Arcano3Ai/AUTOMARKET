@@ -6,11 +6,11 @@ window.Wishlist = {
     } catch(e) { return []; }
   },
   toggleFavorite: (id) => {
-    const numId = parseInt(id);
-    let favs = window.Wishlist.getFavorites();
-    const index = favs.indexOf(numId);
+    const strId = String(id);
+    let favs = window.Wishlist.getFavorites().map(String);
+    const index = favs.indexOf(strId);
     if (index === -1) {
-      favs.push(numId);
+      favs.push(strId);
       showToast('Guardado en favoritos ❤️', 'success');
     } else {
       favs.splice(index, 1);
@@ -43,8 +43,8 @@ window.Wishlist = {
 };
 
 window.Pages.renderWishlist = () => {
-  const favIds = window.Wishlist.getFavorites();
-  const favAutos = AUTOMARKET_DB.autos.filter(a => favIds.includes(a.id));
+  const favIds = window.Wishlist.getFavorites().map(String);
+  const favAutos = AUTOMARKET_DB.autos.filter(a => favIds.includes(String(a.id)));
 
   return `
     <div class="wishlist-page container animate-fade-in">
