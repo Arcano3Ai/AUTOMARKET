@@ -62,8 +62,11 @@ window.AM_CONFIG = {
   }
 };
 
-// Auto-detect live mode if Firebase keys are set
-if (window.AM_CONFIG.firebase.apiKey !== 'YOUR_FIREBASE_API_KEY') {
+// Auto-detect live mode if a valid Firebase key is provided
+const _fbKey = window.AM_CONFIG.firebase.apiKey;
+const hasValidKey = _fbKey && _fbKey !== 'YOUR_FIREBASE_API_KEY' && !_fbKey.includes('YOUR_');
+
+if (hasValidKey) {
   window.AM_CONFIG.MODE = 'live';
   window.AM_CONFIG.features.firebaseAuth = true;
   window.AM_CONFIG.features.firestoreDB = true;
@@ -71,5 +74,10 @@ if (window.AM_CONFIG.firebase.apiKey !== 'YOUR_FIREBASE_API_KEY') {
   window.AM_CONFIG.features.analytics = true;
   console.log('[AUTOMARKET] 🔥 Live mode — Firebase conectado');
 } else {
-  console.log('[AUTOMARKET] 🧪 Mock mode — Sin Firebase');
+  window.AM_CONFIG.MODE = 'mock';
+  window.AM_CONFIG.features.firebaseAuth = false;
+  window.AM_CONFIG.features.firestoreDB = false;
+  window.AM_CONFIG.features.cloudStorage = false;
+  window.AM_CONFIG.features.analytics = false;
+  console.log('[AUTOMARKET] 🧪 Mock mode — Sin Firebase (datos locales)');
 }

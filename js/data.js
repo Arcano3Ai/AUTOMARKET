@@ -1696,3 +1696,10 @@ const DB = {
   formatPrecio: (n) => `$${n.toLocaleString('es-MX')}`,
   formatKm: (n) => `${n.toLocaleString('es-MX')} km`,
 };
+
+if (typeof window !== 'undefined') {
+  window.AUTOMARKET_DB = AUTOMARKET_DB;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = AUTOMARKET_DB;
+}

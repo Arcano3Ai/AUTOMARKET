@@ -11,7 +11,10 @@ window.FirebaseService = (() => {
 
   async function init() {
     if (initialized) return;
-    if (!window.AM_CONFIG?.features?.firebaseAuth) return;
+    const isLive = window.AM_CONFIG?.MODE === 'live' && 
+                   window.AM_CONFIG?.firebase?.apiKey && 
+                   window.AM_CONFIG?.firebase?.apiKey !== 'YOUR_FIREBASE_API_KEY';
+    if (!isLive || !window.AM_CONFIG?.features?.firebaseAuth) return;
 
     try {
       // Usando Firebase SDK v8.10 (Estable y 100% compatible con Vanilla JavaScript)
