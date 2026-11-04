@@ -29,7 +29,7 @@ window.AM_CONFIG = {
   // FIREBASE (pega aquí tu config de la consola)
   // ─────────────────────────────────────────
   firebase: {
-    apiKey:            "AIzaSyDr_AdXbah-oYexSY6yjv75RmBLxeWbqAA",
+    apiKey:            window.__ENV__?.FIREBASE_API_KEY || localStorage.getItem('automarket_firebase_api_key') || "YOUR_FIREBASE_API_KEY",
     authDomain:        "automarket-493420.firebaseapp.com",
     projectId:         "automarket-493420",
     storageBucket:     "automarket-493420.firebasestorage.app",
