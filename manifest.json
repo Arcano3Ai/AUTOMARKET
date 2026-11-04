@@ -1,24 +1,79 @@
 {
-  "name": "Automarket - Tu Próximo Auto",
-  "short_name": "Automarket",
-  "description": "Plataforma premium para comprar y vender vehículos inspeccionados y garantizados.",
-  "start_url": "/#/",
+  "id": "/automarket-pwa",
+  "name": "AUTOMARKET — Supercars & Seminuevos",
+  "short_name": "AUTOMARKET",
+  "description": "El marketplace líder de autos exóticos, deportivos y seminuevos certificados en México. Ferrari, Lamborghini, Porsche y más.",
+  "start_url": "./index.html#/",
+  "scope": "./",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#050510",
-  "theme_color": "#0ea5e9",
-  "orientation": "portrait-primary",
+  "theme_color": "#050510",
+  "orientation": "any",
+  "categories": ["automotive", "shopping", "lifestyle"],
+  "lang": "es-MX",
+  "dir": "ltr",
+  "prefer_related_applications": false,
   "icons": [
     {
-      "src": "./img/app-icon.png",
+      "src": "./img/icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./img/icon-maskable.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./img/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "./img/icon-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     },
     {
       "src": "./img/app-icon.png",
       "type": "image/png",
-      "sizes": "512x512",
+      "sizes": "192x192 512x512",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Catálogo de Autos",
+      "short_name": "Catálogo",
+      "description": "Ver inventario de vehículos disponibles",
+      "url": "./index.html#/catalogo",
+      "icons": [{ "src": "./img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Colección Exótica",
+      "short_name": "Exóticos",
+      "description": "Superdeportivos Ferrari y Lamborghini",
+      "url": "./index.html#/catalogo?marca=Ferrari",
+      "icons": [{ "src": "./img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Vender mi Auto",
+      "short_name": "Vender",
+      "description": "Valúa tu auto en minutos",
+      "url": "./index.html#/vender",
+      "icons": [{ "src": "./img/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Simulador de Crédito",
+      "short_name": "Crédito",
+      "description": "Calcula tu mensualidad y enganche",
+      "url": "./index.html#/financiamiento",
+      "icons": [{ "src": "./img/icon-192.png", "sizes": "192x192" }]
     }
   ]
 }

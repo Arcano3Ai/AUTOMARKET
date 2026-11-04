@@ -1,9 +1,14 @@
-const CACHE_NAME = 'automarket-pwa-v2';
+const CACHE_NAME = 'automarket-pwa-v3';
+const RUNTIME_CACHE = 'automarket-runtime-v3';
+
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './img/app-icon.png',
+  './img/icon-192.png',
+  './img/icon-512.png',
+  './img/icon-maskable.png',
   './css/variables.css',
   './css/base.css',
   './css/animations.css',
@@ -31,6 +36,7 @@ const ASSETS_TO_CACHE = [
   './js/api.js',
   './js/components.js',
   './js/router.js',
+  './js/pwa.js',
   './js/app.js',
   './js/ai-agent.js',
   './js/pages/home.js',
@@ -51,7 +57,7 @@ const ASSETS_TO_CACHE = [
   './js/pages/construction.js'
 ];
 
-// Instalar Service Worker y Cachear Assets Estáticos (App Shell)
+// Install: Precache App Shell
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -61,46 +67,69 @@ self.addEventListener('install', event => {
   );
 });
 
-// Limpiar Caches antiguos
+// Activate: Prune Old Caches
 self.addEventListener('activate', event => {
+  const currentCaches = [CACHE_NAME, RUNTIME_CACHE];
   event.waitUntil(
     caches.keys().then(keys => {
       return Promise.all(
-        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+        keys.filter(key => !currentCaches.includes(key)).map(key => caches.delete(key))
       );
     }).then(() => self.clients.claim())
   );
 });
 
-// Interceptar peticiones de red
+// Fetch Strategy
 self.addEventListener('fetch', event => {
-  // Ignorar peticiones que no sean GET
+  // Solo procesar peticiones GET
   if (event.request.method !== 'GET') return;
 
-  const url = event.request.url;
+  const url = new URL(event.request.url);
 
-  // Ignorar peticiones a APIs externas, Firebase o Cloud Run backend
-  if (url.includes('firestore.googleapis.com') ||
-      url.includes('identitytoolkit.googleapis.com') ||
-      url.includes('generativelanguage.googleapis.com') ||
-      url.includes('/api/') ||
-      url.includes('run.app')) {
+  // Ignorar Firebase, Cloud Run API y APIs externas
+  if (url.hostname.includes('firestore.googleapis.com') ||
+      url.hostname.includes('identitytoolkit.googleapis.com') ||
+      url.hostname.includes('generativelanguage.googleapis.com') ||
+      url.pathname.startsWith('/api/') ||
+      url.hostname.includes('run.app')) {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then(cachedResponse => {
-        if (cachedResponse) {
-          // Stale-while-revalidate para recursos locales
-          fetch(event.request).then(networkResponse => {
-            if (networkResponse && networkResponse.status === 200) {
-              caches.open(CACHE_NAME).then(cache => cache.put(event.request, networkResponse));
+  // Rutas de imágenes externas (Unsplash, Google favicons): Cache First con fallback a network
+  if (url.hostname.includes('unsplash.com') || url.hostname.includes('google.com')) {
+    event.respondWith(
+      caches.open(RUNTIME_CACHE).then(cache => {
+        return cache.match(event.request).then(cached => {
+          if (cached) return cached;
+          return fetch(event.request).then(response => {
+            if (response && response.status === 200) {
+              cache.put(event.request, response.clone());
             }
-          }).catch(() => {});
-          return cachedResponse;
-        }
-        return fetch(event.request);
+            return response;
+          }).catch(() => cached);
+        });
       })
+    );
+    return;
+  }
+
+  // App Shell y assets locales: Stale While Revalidate
+  event.respondWith(
+    caches.match(event.request).then(cachedResponse => {
+      const fetchPromise = fetch(event.request).then(networkResponse => {
+        if (networkResponse && networkResponse.status === 200) {
+          caches.open(CACHE_NAME).then(cache => cache.put(event.request, networkResponse.clone()));
+        }
+        return networkResponse;
+      }).catch(err => {
+        // Si no hay red y no está en caché, responder con fallback si es navegación
+        if (event.request.mode === 'navigate') {
+          return caches.match('./index.html') || caches.match('/');
+        }
+        throw err;
+      });
+
+      return cachedResponse || fetchPromise;
+    })
   );
 });
