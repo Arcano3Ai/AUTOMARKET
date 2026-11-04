@@ -14,6 +14,8 @@ window.Pages.renderDetail = (id) => {
   const isFav = window.Wishlist && window.Wishlist.getFavorites().includes(auto.id);
   const waText = encodeURIComponent(`Hola, me interesa este auto: ${auto.marca} ${auto.modelo} ${auto.año} - ${window.location.href}`);
   const waLink = `https://wa.me/525590000000?text=${waText}`;
+  const waShareMsg = encodeURIComponent(`🚗 *${auto.marca} ${auto.modelo} ${auto.año}* en AUTOMARKET México 🏁\n💰 Precio: $${auto.precio.toLocaleString('es-MX')} MXN\n✅ Garantía de 120 puntos certificada\n\n👉 Ver fotos y ficha técnica aquí:\n${window.location.href}`);
+  const waShareLink = `https://api.whatsapp.com/send?text=${waShareMsg}`;
 
   return `
     <div class="detail-page container animate-fade-in">
@@ -170,15 +172,19 @@ window.Pages.renderDetail = (id) => {
               <span style="font-size:var(--fs-sm);font-weight:700">${isFav ? 'Guardado ✓' : 'Guardar Favorito'}</span>
             </button>
 
-            <!-- SHARE -->
+            <!-- SHARE & WHATSAPP -->
             <div style="display:flex;gap:var(--sp-2);margin-top:var(--sp-4);padding-top:var(--sp-4);border-top:1px solid var(--clr-surface-high)">
-              <button onclick="navigator.clipboard.writeText(window.location.href).then(()=>showToast('Link copiado','success'))"
-                class="btn-ghost-sm" style="flex:1;font-size:11px">
+              <button onclick="window.shareAuto ? window.shareAuto(${auto.id}) : (navigator.clipboard.writeText(window.location.href).then(()=>showToast('Link copiado','success')))"
+                class="btn-ghost-sm" style="flex:1;font-size:11px" title="Compartir">
                 🔗 Compartir
               </button>
+              <a href="${waShareLink}" target="_blank" rel="noopener noreferrer"
+                class="btn-ghost-sm" style="flex:1.2;font-size:11px;text-decoration:none;text-align:center;color:#22C55E;font-weight:700" title="Compartir en WhatsApp">
+                📲 Compartir WA
+              </a>
               <a href="${waLink}" target="_blank" rel="noopener noreferrer"
-                class="btn-ghost-sm" style="flex:1;font-size:11px;text-decoration:none;text-align:center">
-                📱 WhatsApp
+                class="btn-ghost-sm" style="flex:1;font-size:11px;text-decoration:none;text-align:center" title="Contactar asesor">
+                💬 Asesor
               </a>
             </div>
           </div>
@@ -220,4 +226,21 @@ window.Pages.openGallery = (id) => {
       ${auto.fotos.map((f,i) => `<img src="${f}" alt="foto ${i+1}" style="width:100%;border-radius:12px;display:block">`).join('')}
     </div>`;
   openModal(html);
+};
+
+window.shareAuto = (id) => {
+  const auto = DB.getById(id);
+  if (!auto) return;
+  const shareData = {
+    title: `${auto.marca} ${auto.modelo} ${auto.año} | AUTOMARKET`,
+    text: `🚗 Mira este ${auto.marca} ${auto.modelo} ${auto.año} ($${auto.precio.toLocaleString('es-MX')} MXN) en AUTOMARKET México. 100% garantizado:`,
+    url: window.location.href
+  };
+  if (navigator.share) {
+    navigator.share(shareData).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      showToast('Enlace copiado al portapapeles. ¡Listo para compartir en WhatsApp!', 'success');
+    });
+  }
 };

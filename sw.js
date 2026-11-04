@@ -1,5 +1,5 @@
-const CACHE_NAME = 'automarket-pwa-v4';
-const RUNTIME_CACHE = 'automarket-runtime-v4';
+const CACHE_NAME = 'automarket-pwa-v5';
+const RUNTIME_CACHE = 'automarket-runtime-v5';
 
 const ASSETS_TO_CACHE = [
   './',
@@ -9,6 +9,8 @@ const ASSETS_TO_CACHE = [
   './img/icon-192.png',
   './img/icon-512.png',
   './img/icon-maskable.png',
+  './img/negocio-automarket.jpg',
+  './img/showroom-automarket.jpg',
   './css/variables.css',
   './css/base.css',
   './css/animations.css',

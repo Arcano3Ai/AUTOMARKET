@@ -18,6 +18,40 @@ const routes = {
   '/checkout': 'renderCheckout', // dynamic route (matches partly)
 };
 
+// Dynamic Social & WhatsApp Meta Tags Helper
+function updateMetaTags(opts = {}) {
+  const defaultTitle = 'AUTOMARKET — Tu próximo auto, garantizado | Concesionaria & Marketplace';
+  const defaultDesc = '🚗 Concesionaria y Marketplace líder en México. Más de 90 autos verificados con garantía de 120 puntos, súper deportivos (Ferrari, Lambo, Porsche), SUVs, Pick-Ups y financiamiento en minutos. ¡Conoce nuestro showroom!';
+  const defaultImg = 'https://raw.githubusercontent.com/Arcano3Ai/AUTOMARKET/main/img/negocio-automarket.jpg';
+  const defaultUrl = window.location.href;
+
+  const title = opts.title || defaultTitle;
+  const description = opts.description || defaultDesc;
+  const image = opts.image || defaultImg;
+  const url = opts.url || defaultUrl;
+
+  document.title = title;
+
+  const setMeta = (attr, key, val) => {
+    let el = document.querySelector(`meta[${attr}="${key}"]`);
+    if (!el) {
+      el = document.createElement('meta');
+      el.setAttribute(attr, key);
+      document.head.appendChild(el);
+    }
+    el.setAttribute('content', val);
+  };
+
+  setMeta('name', 'description', description);
+  setMeta('property', 'og:title', title);
+  setMeta('property', 'og:description', description);
+  setMeta('property', 'og:image', image);
+  setMeta('property', 'og:url', url);
+  setMeta('name', 'twitter:title', title);
+  setMeta('name', 'twitter:description', description);
+  setMeta('name', 'twitter:image', image);
+}
+
 // Expose page functions namespace
 window.Pages = window.Pages || {};
 
@@ -45,10 +79,20 @@ async function renderRoute() {
   // Match routes
   if (hash.startsWith('/auto/')) {
     const id = hash.split('/')[2];
+    const auto = window.DB && window.DB.getById ? window.DB.getById(id) : null;
+    if (auto) {
+      updateMetaTags({
+        title: `${auto.marca} ${auto.modelo} ${auto.año} ($${auto.precio.toLocaleString('es-MX')} MXN) | AUTOMARKET`,
+        description: `🚗 ${auto.marca} ${auto.modelo} ${auto.año} en AUTOMARKET México. ${auto.motor}, ${auto.transmision}, ${auto.km.toLocaleString('es-MX')} km. ${auto.descripcion}`,
+        image: auto.fotos && auto.fotos[0] ? auto.fotos[0] : null,
+        url: window.location.href
+      });
+    }
     if (window.Pages.renderDetail) {
       app.innerHTML = window.Pages.renderDetail(id);
     }
   } else if (hash.startsWith('/checkout/')) {
+    updateMetaTags();
     const id = hash.split('/')[2];
     if (window.Pages.renderCheckout) {
       app.innerHTML = window.Pages.renderCheckout(id);
@@ -57,6 +101,7 @@ async function renderRoute() {
       }
     }
   } else {
+    updateMetaTags();
     // Exact match or fallback empty to '/'
     // Parse Query Strings (ej: /catalogo?marca=Nissan)
     let [baseHash, queryString] = hash.split('?');
