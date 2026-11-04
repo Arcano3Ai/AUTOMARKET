@@ -10,6 +10,8 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 body {
@@ -20,6 +22,11 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+button, a, input, select {
+  touch-action: manipulation;
 }
 
 /* Scrollbar luxury */

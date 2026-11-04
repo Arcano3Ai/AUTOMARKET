@@ -1,5 +1,5 @@
-const CACHE_NAME = 'automarket-pwa-v5';
-const RUNTIME_CACHE = 'automarket-runtime-v5';
+const CACHE_NAME = 'automarket-pwa-v6';
+const RUNTIME_CACHE = 'automarket-runtime-v6';
 
 const ASSETS_TO_CACHE = [
   './',

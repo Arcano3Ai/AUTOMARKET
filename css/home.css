@@ -317,20 +317,40 @@
 }
 
 @media (max-width: 1024px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-visual { display: none; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: var(--sp-8);
+  }
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--sp-4);
+  }
+  .supercar-hero-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  .supercar-img-container {
+    height: 220px;
+  }
   .hero-bg {
     width: 100%;
     right: 0;
+    opacity: 0.25;
     mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.5) 60%, transparent);
     -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.5) 60%, transparent);
   }
-  .hero { min-height: 90svh; }
+  .hero { min-height: auto; padding-bottom: var(--sp-12); }
 }
 @media (max-width: 640px) {
-  .hero-title { font-size: 2.6rem; }
-  .hero-ctas  { flex-direction: column; width: 100%; }
-  .hero-ctas > * { width: 100%; }
+  .hero-title { font-size: 2.3rem; }
+  .hero-ctas  { flex-direction: column; width: 100%; gap: var(--sp-3); }
+  .hero-ctas > * { width: 100%; text-align: center; justify-content: center; }
+  .supercar-img-container { height: 190px; }
+  .supercar-model { font-size: 1.25rem; }
+  .thumb-btn { width: 52px; height: 38px; }
+  .autos-grid { grid-template-columns: 1fr; gap: var(--sp-4); }
 }
 
 /* ── STATS BANNER ────────────────────────────────────────────── */

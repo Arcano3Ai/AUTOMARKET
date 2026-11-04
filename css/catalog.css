@@ -168,3 +168,51 @@
     align-items: flex-start;
   }
 }
+
+/* ── CATEGORY CHIPS SCROLLER (MOBILE & DESKTOP) ── */
+.category-chips-scroller {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 2px var(--sp-4);
+  margin-bottom: var(--sp-4);
+  scrollbar-width: none;
+}
+.category-chips-scroller::-webkit-scrollbar {
+  display: none;
+}
+.cat-chip {
+  padding: 8px 14px;
+  border-radius: var(--r-full);
+  background: var(--clr-surface-low);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--clr-text-muted);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--tr-fast);
+  flex-shrink: 0;
+  touch-action: manipulation;
+}
+.cat-chip:hover {
+  background: var(--clr-surface-high);
+  color: #fff;
+}
+.cat-chip.active {
+  background: var(--grad-red);
+  color: #fff;
+  border-color: rgba(230, 57, 70, 0.4);
+  box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+}
+.chip-count {
+  font-size: 11px;
+  opacity: 0.85;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 7px;
+  border-radius: 10px;
+}

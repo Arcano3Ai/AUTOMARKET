@@ -78,6 +78,15 @@ window.Pages.renderCatalog = () => {
 
         <!-- GRID -->
         <main>
+          <!-- QUICK CATEGORY CHIPS SCROLLER (MOBILE & DESKTOP) -->
+          <div class="category-chips-scroller" id="category-chips">
+            <button class="cat-chip active" data-cat="">Todas (${AUTOMARKET_DB.autos.length})</button>
+            ${AUTOMARKET_DB.categorias.map(c => {
+              const count = AUTOMARKET_DB.autos.filter(a => a.categoria === c).length;
+              return `<button class="cat-chip" data-cat="${c}">${c} <span class="chip-count">${count}</span></button>`;
+            }).join('')}
+          </div>
+
           <div class="autos-grid" id="catalog-grid" style="margin-top:0">
             <!-- Rendered by JS -->
           </div>
@@ -159,7 +168,29 @@ window.Pages.renderCatalogInit = () => {
 
   // Bind Auto-updating events to inputs
   document.querySelectorAll('input[name="marca"], input[name="categoria"]').forEach(el => {
-    el.addEventListener('change', updateGrid);
+    el.addEventListener('change', () => {
+      // Sync chips
+      const curCat = document.querySelector('input[name="categoria"]:checked')?.value || '';
+      document.querySelectorAll('.cat-chip').forEach(b => {
+        if (b.dataset.cat === curCat) b.classList.add('active');
+        else b.classList.remove('active');
+      });
+      updateGrid();
+    });
+  });
+
+  // Handle Category Chips (Mobile & Desktop)
+  document.querySelectorAll('.cat-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.cat;
+      const targetRadio = document.querySelector(`input[name="categoria"][value="${cat}"]`);
+      if (targetRadio) {
+        targetRadio.checked = true;
+      }
+      document.querySelectorAll('.cat-chip').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateGrid();
+    });
   });
   
   const searchInput = document.getElementById('filter-search');
@@ -178,6 +209,10 @@ window.Pages.renderCatalogInit = () => {
       btnReset.addEventListener('click', () => {
         document.querySelector('input[name="marca"][value=""]').checked = true;
         document.querySelector('input[name="categoria"][value=""]').checked = true;
+        document.querySelectorAll('.cat-chip').forEach(b => {
+          if (b.dataset.cat === '') b.classList.add('active');
+          else b.classList.remove('active');
+        });
         if(searchInput) searchInput.value = '';
         document.getElementById('filter-price-min').value = '';
         document.getElementById('filter-price-max').value = '';
